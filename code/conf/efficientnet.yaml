@@ -1,0 +1,25 @@
+#模型选择，支持efficient以及torchvision内置所有模型，注意这里的model_name必须严格按照efficientnet或者torchvision里面的模型命名
+#参考https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-models/
+model_name : efficientnet-b5
+pretrained_weight : ../pretrained/efficientnet-b5-b6417697.pth #如果为None则会从pytorch提供的model_zoo里面下载。速度较慢，不建议这么操作
+class_num : 2
+
+#数据参数
+train_folder : ../data/train
+denoise_list : ['median_bulr_3','origin']
+n_fold : 5
+num_worker : 0
+debug_mode : False  #如果为True则只使用100张图片来做快速调试，False则为使用全部图片
+
+#训练参数
+batch_size : 32
+lr : 0.0003
+n_epoch : 10
+ckpt_root : ../ckpt/efficientnet-b5
+print_fre : 10
+gpuid : '3'
+
+#测试参数
+test_folder : ../data/val
+submit_csv : ../result/efficientnet-b5-baseline.csv
+tta : True  #简单的TTA，椒盐噪声和原始图像
